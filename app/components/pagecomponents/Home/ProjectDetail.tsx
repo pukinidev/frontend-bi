@@ -56,7 +56,9 @@ export default function ProjectDetail() {
         </ListItem>
       </List>
 
-      <Typography variant="h3" color="primary" fontWeight="bold">
+      <Typography variant="h3" color="primary" fontWeight="bold" sx={{
+        paddingBottom: "1rem",
+      }}>
         ODS
       </Typography>
       <Grid2
