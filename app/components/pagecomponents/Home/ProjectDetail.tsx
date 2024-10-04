@@ -1,8 +1,7 @@
-'use client'
+"use client";
 
-import { Container, Grid2, Typography } from "@mui/material";
+import { Container, Grid2, Typography, ListItem, List } from "@mui/material";
 import Image from "next/image";
-
 
 export default function ProjectDetail() {
   return (
@@ -35,18 +34,43 @@ export default function ProjectDetail() {
         de las opiniones ciudadanas para encontrar insights que permitan la toma
         de decisiones y el diseño de políticas públicas.
       </Typography>
-      <Typography variant="h3" color="primary" fontWeight="bold">
-          ODS 
+      <Typography
+        variant="h3"
+        color="primary"
+        fontWeight="bold"
+        sx={{ marginBottom: "1rem" }}
+      >
+        Objetivos
       </Typography>
-      <Grid2 container sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: "1rem",
-      }}>
+
+      <List>
+        <ListItem>
+          ➡️ Automatizar un proceso replicable para aplicar la metodología de
+          analítica de textos en la construcción de modelos analíticos.
+        </ListItem>
+        <ListItem>
+          ➡️ Desarrollar una aplicación que utilice un modelo analítico basado
+          en aprendizaje automático y sea de interés para una organización,
+          empresa o institución y en particular para un rol existente en alguna
+          de ellas.
+        </ListItem>
+      </List>
+
+      <Typography variant="h3" color="primary" fontWeight="bold">
+        ODS
+      </Typography>
+      <Grid2
+        container
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "1rem",
+        }}
+      >
         <Image src="/ODS3.png" alt="ODS 3" height={300} width={300} />
-        <Image src="/ODS4.png"  alt="ODS 4" height={300} width={300} />
+        <Image src="/ODS4.png" alt="ODS 4" height={300} width={300} />
         <Image src="/ODS5.png" alt="ODS 5" height={300} width={300} />
       </Grid2>
     </Container>
