@@ -8,7 +8,7 @@ export default function Hero() {
     <Box
       sx={{
         width: "100%",
-        paddingTop: 2,
+        paddingTop: 7,
         display: "flex",
         justifyContent: "center", // Optional: center the image
       }}
