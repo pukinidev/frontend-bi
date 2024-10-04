@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
@@ -11,15 +11,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-
+import Link from "next/link"; // Import Link from Next.js
 
 const pages = [
-  "Predecir un conjunto de datos",
-  "Predecir una muestra",
+  { href: "/model", label: "Modelo" },
+  { href: "/predictdata", label: "Predecir un conjunto de datos" },
+  { href: "/predictsample", label: "Predecir una muestra" },
 ];
 
 export default function CustomAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +38,7 @@ export default function CustomAppBar() {
         <Toolbar disableGutters>
           <Typography
             variant="h6"
-            component="a"
+            component={Link}
             href="/"
             color="primary"
             sx={{
@@ -74,9 +77,16 @@ export default function CustomAppBar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+              {pages.map(({ href, label }) => (
+                <MenuItem key={href} onClick={handleCloseNavMenu}>
+                  <Link
+                    href={href === "/model" ? href : `/model/${href}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {label}
+                    </Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -85,7 +95,7 @@ export default function CustomAppBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
+            component={Link}
             href="/"
             color="primary"
             sx={{
@@ -100,14 +110,19 @@ export default function CustomAppBar() {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {pages.map(({ href, label }) => (
               <Button
-                key={page}
+                key={href}
                 onClick={handleCloseNavMenu}
                 color="inherit"
-                sx={{ my: 2, display: "block"}}
+                sx={{ my: 2, display: "block" }}
               >
-                {page}
+                <Link
+                  href={href === "/model" ? href : `/model/${href}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {label}
+                </Link>
               </Button>
             ))}
           </Box>
@@ -116,4 +131,3 @@ export default function CustomAppBar() {
     </AppBar>
   );
 }
-
