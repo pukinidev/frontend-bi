@@ -1,6 +1,14 @@
+import { Typography } from "@mui/material";
 
-export default function ProjectData() {
+export default function Model() {
   return (
-    <div>page</div>
-  )
+    <Typography
+      variant="h2"
+      sx={{ marginBottom: "1rem" }}
+      color="primary"
+      fontWeight="bold"
+    >
+      Modelo
+    </Typography>
+  );
 }
