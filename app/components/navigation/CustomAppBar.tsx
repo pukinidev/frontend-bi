@@ -14,8 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 
 
 const pages = [
-  "Predecir sobre un conjunto de datos",
-  "Predecir una muestra de los datos",
+  "Predecir un conjunto de datos",
+  "Predecir una muestra",
 ];
 
 export default function CustomAppBar() {

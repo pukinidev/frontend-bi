@@ -16,10 +16,9 @@ export default function Hero() {
       <Image
         src="/banner.png"
         alt="Logo"
-        layout="responsive" 
-        height={620} 
-        width={1920} 
-        style={{ marginBottom: "3rem", maxWidth: "100%", height: "auto" }} 
+        height={620}
+        width={1920}
+        style={{ marginBottom: "3rem", width: "100%", height: "auto" }}
       />
     </Box>
   );
