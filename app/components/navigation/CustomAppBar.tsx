@@ -18,7 +18,7 @@ const pages = [
   "Predecir una muestra de los datos",
 ];
 
-function ResponsiveAppBar() {
+export default function CustomAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -117,4 +117,3 @@ function ResponsiveAppBar() {
   );
 }
 
-export default ResponsiveAppBar;
