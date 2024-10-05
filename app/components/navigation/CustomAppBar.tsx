@@ -11,7 +11,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Link from "next/link"; // Import Link from Next.js
+import Link from "next/link"; 
+import { useState } from "react";
 
 const pages = [
   { href: "/model", label: "Modelo" },
@@ -20,7 +21,7 @@ const pages = [
 ];
 
 export default function CustomAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(
     null
   );
 
