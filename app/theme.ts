@@ -16,7 +16,6 @@ const theme = createTheme({
     primary: {
       main: '#ED8B00',
     },
-    
     text: {
       primary: '#000000',
     },
