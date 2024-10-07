@@ -32,7 +32,7 @@ export default function PredictData() {
     if (file) {
       formData.append("file", file);
       try {
-        const url = "http://127.0.0.1:8000/uploadfile";
+        const url = "https://fastapi-967824586620.us-central1.run.app/uploadfile";
         const response = await fetch(url, {
           method: "POST",
           body: formData,
