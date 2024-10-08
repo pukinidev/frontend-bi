@@ -15,7 +15,6 @@ import Link from "next/link";
 import { useState } from "react";
 
 const pages = [
-  { href: "/model", label: "Modelo" },
   { href: "/predictdata", label: "Predecir un conjunto de datos" },
   { href: "/predictsample", label: "Predecir una muestra" },
 ];
@@ -119,7 +118,7 @@ export default function CustomAppBar() {
                 sx={{ my: 2, display: "block" }}
               >
                 <Link
-                  href={href === "/model" ? href : `/model/${href}`}
+                  href={href}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   {label}

@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 
-export default function ModelLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
