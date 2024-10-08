@@ -80,7 +80,7 @@ export default function CustomAppBar() {
               {pages.map(({ href, label }) => (
                 <MenuItem key={href} onClick={handleCloseNavMenu}>
                   <Link
-                    href={href === "/model" ? href : `/model/${href}`}
+                    href={href}
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <Typography sx={{ textAlign: "center" }}>
