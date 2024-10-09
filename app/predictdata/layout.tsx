@@ -11,7 +11,6 @@ export default function Layout({
         sx={{
           display: "flex",
           paddingTop: 10,
-          flexDirection: "column",
           paddingBottom: "3rem",
         }}
       >
