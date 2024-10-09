@@ -20,7 +20,7 @@ const VisuallyHiddenInput = styled("input")({
 
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
-  const [predictionData, setPredictionData] = useState<PredictionData[] | null>(
+  const [predictionData, setPredictionData] = useState<PredictionInterface[] | null>(
     null
   );
 
@@ -42,7 +42,7 @@ export default function PredictData() {
           method: "POST",
           body: formData,
         });
-        const data: PredictionData[] = await response.json();
+        const data: PredictionInterface[] = await response.json();
         setPredictionData(data);
       } catch (error) {
         console.error(error);

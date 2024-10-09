@@ -1,4 +1,4 @@
-interface PredictionData {
+interface PredictionInterface {
     "3": number;
     "4": number;
     "5": number;
