@@ -52,7 +52,6 @@ export default function PredictData() {
     }
   };
 
-  // Modify to pass if xlsx or csv file
   const downloadPrediction = async () => {
     if (predictionData) {
       const url =
@@ -83,7 +82,7 @@ export default function PredictData() {
       >
         Predecir un conjunto de datos
       </Typography>
-      <ModelTable data={predictionData} />
+      {predictionData !== null && <ModelTable data={predictionData} />}
       <Container
         sx={{
           display: "flex",

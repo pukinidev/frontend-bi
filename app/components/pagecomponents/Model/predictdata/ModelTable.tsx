@@ -6,12 +6,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import CircularProgress from "@mui/material/CircularProgress";
 
 import { useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
-function ModelTable({ data }: ModelTableProps) {
+export default function ModelTable({ data }: ModelTableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -26,20 +25,8 @@ function ModelTable({ data }: ModelTableProps) {
     setPage(0);
   };
 
-  if (data === null) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <CircularProgress />
-        <Typography variant="h6"> Loading...</Typography>
-      </div>
-    );
+  if (data == null) {
+    return null;
   }
 
   const paginatedData = data.slice(
@@ -49,9 +36,7 @@ function ModelTable({ data }: ModelTableProps) {
 
   return (
     <Paper>
-      <TableContainer
-      
-      >
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
@@ -68,9 +53,12 @@ function ModelTable({ data }: ModelTableProps) {
                     variant="contained"
                     color="primary"
                     sx={{
-                        color: "white",
+                      color: "white",
                     }}
-                  > Detalles</Button>
+                  >
+                    {" "}
+                    Detalles
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -90,4 +78,3 @@ function ModelTable({ data }: ModelTableProps) {
   );
 }
 
-export default ModelTable;
