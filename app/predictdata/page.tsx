@@ -48,7 +48,6 @@ export default function PredictData() {
           body: formData,
         });
         const data: PredictionData[] = await response.json();
-        console.log(data);
         setPredictionData(data);
       } catch (error) {
         console.error(error);
