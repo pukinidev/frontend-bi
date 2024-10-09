@@ -1,5 +1,5 @@
 "use client";
-import { Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
@@ -27,7 +27,9 @@ interface PredictionData {
 
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
-  const [predictionData, setPredictionData] = useState<PredictionData[] | null>(null);
+  const [predictionData, setPredictionData] = useState<PredictionData[] | null>(
+    null
+  );
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -56,7 +58,7 @@ export default function PredictData() {
       console.log("No file selected");
     }
   };
-  
+
   // Modify to pass if xlsx or csv file
   const downloadPrediction = async () => {
     if (predictionData) {
@@ -66,7 +68,7 @@ export default function PredictData() {
         method: "POST",
         body: JSON.stringify(predictionData),
         headers: {
-          "Content-Type": "application/json",  
+          "Content-Type": "application/json",
         },
       });
       const data = await response.blob();
@@ -79,7 +81,7 @@ export default function PredictData() {
   };
 
   return (
-    <div>
+    <>
       <Typography
         variant="h2"
         sx={{ marginBottom: "1rem" }}
@@ -88,46 +90,55 @@ export default function PredictData() {
       >
         Predecir un conjunto de datos
       </Typography>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Button
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUpload />}
+          sx={{
+            color: "white",
+            marginBottom: "1rem",
+          }}
+        >
+          Suba un archivo
+          <VisuallyHiddenInput
+            type="file"
+            onChange={handleFileChange}
+            multiple
+          />
+        </Button>
 
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUpload />}
-        sx={{
-          color: "white",
-        }}
-      >
-        Suba un archivo
-        <VisuallyHiddenInput type="file" onChange={handleFileChange} multiple />
-      </Button>
-      <Button
-        onClick={handleFileSubmit}
-        variant="contained"
-        sx={{
-          color: "white",
-          marginLeft: "1rem",
-        }}
-      >
-        Predecir
-      </Button>
-      <Button
-        onClick={downloadPrediction}
-        variant="contained"
-        sx={{
-          color: "white",
-          marginLeft: "1rem",
-        }}
-      >
-        Descargar Prediccion
-      </Button>
-      <Typography
-        variant="body1"
-        sx={{
-          marginTop: "1rem",
-        }}
-      ></Typography>
-    </div>
+        <Button
+          onClick={handleFileSubmit}
+          variant="contained"
+          sx={{
+            color: "white",
+            marginBottom: "1rem",
+          }}
+        >
+          Predecir
+        </Button>
+
+        <Button
+          onClick={downloadPrediction}
+          variant="contained"
+          sx={{
+            color: "white",
+            marginBottom: "1rem",
+          }}
+        >
+          Descargar
+        </Button>
+      </Container>
+    </>
   );
 }

@@ -9,9 +9,7 @@ export default function Layout({
       <Container
         maxWidth="xl"
         sx={{
-          display: "flex",
           paddingTop: 10,
-          flexDirection: "column",
           paddingBottom: "3rem",
         }}
       >
