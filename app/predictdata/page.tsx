@@ -17,9 +17,17 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+interface PredictionData {
+  "3": number;
+  "4": number;
+  "5": number;
+  Texto: string;
+  Prediccion: string;
+}
+
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
-  const [predictionData, setPredictionData] = useState<[] | null>(null);
+  const [predictionData, setPredictionData] = useState<PredictionData[] | null>(null);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -39,7 +47,7 @@ export default function PredictData() {
           method: "POST",
           body: formData,
         });
-        const data = await response.json();
+        const data: PredictionData[] = await response.json();
         console.log(data);
         setPredictionData(data);
       } catch (error) {
@@ -58,6 +66,9 @@ export default function PredictData() {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(predictionData),
+        headers: {
+          "Content-Type": "application/json",  
+        },
       });
       const data = await response.blob();
       const urlBlob = URL.createObjectURL(data);
