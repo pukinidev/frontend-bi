@@ -17,13 +17,6 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-interface PredictionData {
-  "3": number;
-  "4": number;
-  "5": number;
-  Texto: string;
-  Prediccion: string;
-}
 
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
