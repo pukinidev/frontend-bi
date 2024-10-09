@@ -5,7 +5,6 @@ import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
-
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -20,7 +19,7 @@ const VisuallyHiddenInput = styled("input")({
 
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
-  const [prediction, setPrediction] = useState<string | null>(null);
+  const [predictionData, setPredictionData] = useState<[] | null>(null);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -34,33 +33,40 @@ export default function PredictData() {
     if (file) {
       formData.append("file", file);
       try {
-        const url = "https://fastapi-967824586620.us-central1.run.app/predict_from_excel";
+        const url =
+          "https://fastapi-967824586620.us-central1.run.app/predict_from_excel";
         const response = await fetch(url, {
           method: "POST",
           body: formData,
         });
-        const data = await response.blob();
-        setPrediction(URL.createObjectURL(data));
+        const data = await response.json();
+        console.log(data);
+        setPredictionData(data);
       } catch (error) {
         console.error(error);
       }
-    }
-    else {
+    } else {
       console.log("No file selected");
     }
   };
-
-  const downloadPrediction = () => {
-    if (prediction) {
+  
+  // Modify to pass if xlsx or csv file
+  const downloadPrediction = async () => {
+    if (predictionData) {
+      const url =
+        "https://fastapi-967824586620.us-central1.run.app/download-file/?format=xlsx";
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(predictionData),
+      });
+      const data = await response.blob();
+      const urlBlob = URL.createObjectURL(data);
       const a = document.createElement("a");
-      a.href = prediction;
+      a.href = urlBlob;
       a.download = "prediction.xlsx";
       a.click();
     }
-    else {
-      setPrediction("No prediction to download");
-    }
-  }
+  };
 
   return (
     <div>
@@ -72,7 +78,7 @@ export default function PredictData() {
       >
         Predecir un conjunto de datos
       </Typography>
-      
+
       <Button
         component="label"
         role={undefined}
@@ -111,9 +117,7 @@ export default function PredictData() {
         sx={{
           marginTop: "1rem",
         }}
-        >
-        
-        </Typography>
+      ></Typography>
     </div>
   );
 }
