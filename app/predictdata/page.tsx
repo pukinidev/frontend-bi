@@ -95,7 +95,6 @@ export default function PredictData() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
         <Button
