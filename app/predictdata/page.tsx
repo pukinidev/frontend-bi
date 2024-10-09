@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+import ModelTable from "../components/pagecomponents/Model/predictdata/ModelTable";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -17,12 +18,11 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
-  const [predictionData, setPredictionData] = useState<PredictionInterface[] | null>(
-    null
-  );
+  const [predictionData, setPredictionData] = useState<
+    PredictionInterface[] | null
+  >(null);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -83,12 +83,14 @@ export default function PredictData() {
       >
         Predecir un conjunto de datos
       </Typography>
+      <ModelTable data={predictionData} />
       <Container
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
+        maxWidth="md"
       >
         <Button
           component="label"
