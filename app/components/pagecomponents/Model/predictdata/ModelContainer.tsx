@@ -6,6 +6,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
+import ModelDetail from "./ModelDetail";
 
 import { useState } from "react";
 import { Button} from "@mui/material";
@@ -84,7 +85,8 @@ export default function ModelContainer({ data }: ModelContainerProps) {
           rowsPerPageOptions={[5, 10, 25]}
         />
       </Paper>
-
+      { dataModel && <ModelDetail data={dataModel} />
+      }
     </>
   );
 }

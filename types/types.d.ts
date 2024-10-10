@@ -9,3 +9,7 @@ interface PredictionInterface {
 interface ModelContainerProps {
   data: PredictionInterface[] | null;
 }
+
+interface ModelDetailsProps {
+    data: PredictionInterface | null;
+}
