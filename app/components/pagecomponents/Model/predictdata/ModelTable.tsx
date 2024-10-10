@@ -13,10 +13,17 @@ import { Button } from "@mui/material";
 export default function ModelTable({ data }: ModelTableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [dataModel, setDataModel] = useState<PredictionInterface | null>(null);
+
+  console.log(dataModel);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+
+  const selectedModel = (row: PredictionInterface) => {
+    setDataModel(row);
+  }
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -50,6 +57,7 @@ export default function ModelTable({ data }: ModelTableProps) {
                 <TableCell>{row.Texto}</TableCell>
                 <TableCell>
                   <Button
+                    onClick={() => selectedModel(row)}
                     variant="contained"
                     color="primary"
                     sx={{
