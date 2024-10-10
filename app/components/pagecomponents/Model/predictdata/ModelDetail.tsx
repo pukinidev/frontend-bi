@@ -16,7 +16,9 @@ export default function ModelDetail({ data }: ModelDetailsProps) {
       }}
     >
       <CardContent sx={{ textAlign: "center" }}>
-        <Typography variant="h4" color="primary">
+        <Typography variant="h4" color="primary" sx={{
+            fontWeight: "bold",
+        }}>
           Detalles de la predicción
         </Typography>
         <Typography variant="h6" color="primary">
