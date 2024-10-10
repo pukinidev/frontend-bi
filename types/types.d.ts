@@ -13,3 +13,4 @@ interface ModelContainerProps {
 interface ModelDetailsProps {
     data: PredictionInterface | null;
 }
+
