@@ -4,8 +4,8 @@ import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
-import ModelTable from "../components/pagecomponents/Model/predictdata/ModelTable";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import ModelContainer from "../components/pagecomponents/Model/predictdata/ModelContainer";
 
 
 const VisuallyHiddenInput = styled("input")({
@@ -119,7 +119,7 @@ export default function PredictData() {
       {predictionData !== null && (
         <>
           {" "}
-          <ModelTable data={predictionData} />{" "}
+          <ModelContainer data={predictionData} />{" "}
           
           <Typography
             variant="body1"
