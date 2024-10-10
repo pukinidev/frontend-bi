@@ -28,11 +28,11 @@ export default function ModelGauge({ data }: ModelDetailsProps) {
           width={150}
           height={150}
           value={transformedData["3"]}
-          sx={(theme) => ({
+          sx={{
             [`& .${gaugeClasses.valueArc}`]: {
               fill: "#4C9F38",
             },
-          })}
+          }}
         />
       </Stack>
 
@@ -44,11 +44,11 @@ export default function ModelGauge({ data }: ModelDetailsProps) {
           width={150}
           height={150}
           value={transformedData["4"]}
-          sx={(theme) => ({
+          sx={{
             [`& .${gaugeClasses.valueArc}`]: {
               fill: "#C5192D",
             },
-          })}
+          }}
         />
       </Stack>
 
@@ -60,11 +60,11 @@ export default function ModelGauge({ data }: ModelDetailsProps) {
           width={150}
           height={150}
           value={transformedData["5"]}
-          sx={(theme) => ({
+          sx={{
             [`& .${gaugeClasses.valueArc}`]: {
               fill: "#FF3A20",
             },
-          })}
+          }}
         />
       </Stack>
     </Stack>
