@@ -120,13 +120,22 @@ export default function PredictData() {
         <>
           {" "}
           <ModelTable data={predictionData} />{" "}
-
+          
+          <Typography
+            variant="body1"
+            color="primary"
+            fontWeight="bold"
+            sx={{ marginTop: "1rem" }}
+          >
+            Seleccione el formato de descarga
+          </Typography>
           <Select
             value={formatFile}
             onChange={handleSelectFormat}
             sx={{
               marginTop: "1rem",
               marginBottom: "1rem",
+              marginRight: "1rem",
             }}
           >
             <MenuItem value="xlsx">XLSX</MenuItem>
