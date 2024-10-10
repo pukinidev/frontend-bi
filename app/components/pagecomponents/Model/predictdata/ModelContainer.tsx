@@ -8,9 +8,9 @@ import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 
 import { useState } from "react";
-import { Button, Container } from "@mui/material";
+import { Button} from "@mui/material";
 
-export default function ModelContainer({ data }: ModelTableProps) {
+export default function ModelContainer({ data }: ModelContainerProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [dataModel, setDataModel] = useState<PredictionInterface | null>(null);
@@ -42,13 +42,7 @@ export default function ModelContainer({ data }: ModelTableProps) {
   );
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        paddingTop: 10,
-        paddingBottom: "3rem",
-      }}
-    >
+    <>
       <Paper>
         <TableContainer>
           <Table>
@@ -90,6 +84,7 @@ export default function ModelContainer({ data }: ModelTableProps) {
           rowsPerPageOptions={[5, 10, 25]}
         />
       </Paper>
-    </Container>
+
+    </>
   );
 }

@@ -6,6 +6,6 @@ interface PredictionInterface {
   Prediccion: string;
 }
 
-interface ModelTableProps {
+interface ModelContainerProps {
   data: PredictionInterface[] | null;
 }
