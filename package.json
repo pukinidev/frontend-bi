@@ -16,9 +16,13 @@
     "@mui/material": "^6.1.2",
     "@mui/material-nextjs": "^6.1.2",
     "@mui/x-charts": "^7.19.0",
+    "@tiptap/pm": "^2.8.0",
+    "@tiptap/react": "^2.8.0",
+    "@tiptap/starter-kit": "^2.8.0",
     "next": "14.2.14",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.53.0"
   },
   "devDependencies": {
     "@types/node": "^20",
