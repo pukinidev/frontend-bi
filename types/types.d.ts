@@ -11,12 +11,12 @@ interface ModelContainerProps {
 }
 
 interface ModelDetailsProps {
-    data: PredictionInterface | null;
+  data: PredictionInterface | null;
 }
 
 interface ModelMetricsInterface {
+  accuracy: number;
   precision: number;
   recall: number;
-  f1: number;
-  accuracy: number;
+  f1_score: number;
 }

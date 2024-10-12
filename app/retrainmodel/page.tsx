@@ -1,13 +1,10 @@
 "use client";
-import { MenuItem, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import ModelContainer from "../components/pagecomponents/Model/predictdata/ModelContainer";
 import CircularProgress from "@mui/material/CircularProgress";
-
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -23,38 +20,38 @@ const VisuallyHiddenInput = styled("input")({
 
 export default function PredictData() {
   const [file, setFile] = useState<File | null>(null);
-  const [modelData, setModelData] = useState<
-    ModelMetricsInterface[] | null
-  >(null);
-
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const recievedFile = event.target.files;
-    setFile(recievedFile ? recievedFile[0] : null);
+  const [modelData, setModelData] = useState<ModelMetricsInterface | null>(
+    null
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  console.log("modelData", modelData);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const receivedFile = event.target.files;
+    setFile(receivedFile ? receivedFile[0] : null);
   };
 
   const handleFileSubmit = async () => {
-    const formData = new FormData();
     if (file) {
+      setIsLoading(true); // Start loading state
+      const formData = new FormData();
       formData.append("file", file);
       try {
-        const url =
-          "https://fastapi-967824586620.us-central1.run.app/retrain";
+        const url = "https://fastapi-967824586620.us-central1.run.app/retrain";
         const response = await fetch(url, {
           method: "POST",
           body: formData,
         });
-        const data: ModelMetricsInterface[] = await response.json();
+        const data: ModelMetricsInterface = await response.json();
         setModelData(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     } else {
       console.log("No file selected");
     }
   };
-
 
   return (
     <>
@@ -67,50 +64,115 @@ export default function PredictData() {
         Reentrenar el modelo
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
-        Suba un archivo con datos para reentrenar el modelo
+        El reentrenamiento de un modelo de clasificación de ODS (Objetivos de
+        Desarrollo Sostenible) implica ajustar el modelo original utilizando
+        nuevos datos que reflejan patrones o información reciente. Para ello, se
+        toman los nuevos datos y se aplican técnicas de aprendizaje supervisado
+        para ajustar el modelo a las tendencias y características más actuales
+        de los textos relacionados con los ODS. Esto permite que el modelo
+        mantenga su relevancia y precisión en la clasificación a medida que
+        cambian o evolucionan los datos.
       </Typography>
 
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUpload />}
-        sx={{
-          color: "white",
-          marginBottom: "1rem",
-        }}
-        onClick={handleFileSubmit}
-      >
-        Suba un archivo
-        <VisuallyHiddenInput type="file" onChange={handleFileChange} multiple />
-      </Button>
+      <Stack alignContent={"center"} alignItems={"center"} flexWrap={"wrap"}>
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<CloudUpload />}
+          sx={{
+            color: "white",
+            marginBottom: "1rem",
+          }}
+          disabled={isLoading}
+        >
+          {isLoading ? "Subiendo..." : "Subir archivo"}
+          <VisuallyHiddenInput
+            type="file"
+            onChange={handleFileChange}
+            multiple
+          />
+        </Button>
+        <Button
+          variant="contained"
+          sx={{
+            color: "white",
+            marginBottom: "1rem",
+          }}
+          onClick={handleFileSubmit}
+          disabled={!file || isLoading}
+        >
+          Reentrenar
+        </Button>
 
-      {modelData == null ?
-      <CircularProgress /> :
-        (
-        <Stack>
-        <Typography variant="h3" color="primary" fontWeight="bold">
-            Resultados
-        </Typography>
-        <Stack spacing={2} direction={"column"}>
-            <Typography variant="h4" color="primary" fontWeight="bold">
-            Precision
-            </Typography>
-            <Typography variant="h4" color="primary" fontWeight="bold">
-            Recall
-            </Typography>
-            <Typography variant="h4" color="primary" fontWeight="bold">
-            F1
-            </Typography>
-            <Typography variant="h4" color="primary" fontWeight="bold">
-            Accuracy
-            </Typography>
-        </Stack>
+        {isLoading ? (
+          <Stack p={2}>
+            <CircularProgress />
+          </Stack>
+        ) : modelData != null ? (
+          <Stack
+            spacing={8}
+            direction={"row"}
+            alignContent={"center"}
+            alignItems={"center"}
+          >
+            <Stack
+              spacing={2}
+              direction={"column"}
+              alignContent={"center"}
+              alignItems={"center"}
+            >
+              <Typography variant="h4">
+                {(modelData.precision * 100).toString().substring(0, 6)}%
+              </Typography>
+              <Typography variant="h5" color="primary" fontWeight="bold">
+                Precision
+              </Typography>
+            </Stack>
 
-        </Stack>
-        )
-    }
+            <Stack
+              spacing={2}
+              direction={"column"}
+              alignContent={"center"}
+              alignItems={"center"}
+            >
+              <Typography variant="h4">
+                {(modelData.recall * 100).toString().substring(0, 6)}%
+              </Typography>
+              <Typography variant="h5" color="primary" fontWeight="bold">
+                Recall
+              </Typography>
+            </Stack>
+
+            <Stack
+              spacing={2}
+              direction={"column"}
+              alignContent={"center"}
+              alignItems={"center"}
+            >
+              <Typography variant="h4">
+                {(modelData.accuracy * 100).toString().substring(0, 6)}%
+              </Typography>
+              <Typography variant="h5" color="primary" fontWeight="bold">
+                Accuracy
+              </Typography>
+            </Stack>
+
+            <Stack
+              spacing={2}
+              direction={"column"}
+              alignContent={"center"}
+              alignItems={"center"}
+            >
+              <Typography variant="h4">
+                {(modelData.f1_score * 100).toString().substring(0, 6)}%
+              </Typography>
+              <Typography variant="h5" color="primary" fontWeight="bold">
+                F1 Score
+              </Typography>
+            </Stack>
+          </Stack>
+        ) : null}
+      </Stack>
     </>
-    );
+  );
 }
