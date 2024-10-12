@@ -44,7 +44,7 @@ export default function Prediction() {
           <FormControlLabel
             value="texto"
             control={<Radio />}
-            label="Predecir escribiendo tus propios datos"
+            label="Predecir escribiendo las opiniones"
             sx={{ marginBottom: 1 }}
           />
         </RadioGroup>
