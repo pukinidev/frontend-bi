@@ -1,12 +1,12 @@
 "use client";
-import { MenuItem, Typography } from "@mui/material";
+import { Grid2, IconButton, MenuItem, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ModelContainer from "../components/pagecomponents/Model/predictdata/ModelContainer";
-
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -26,12 +26,14 @@ export default function PredictData() {
     PredictionInterface[] | null
   >(null);
   const [formatFile, setFormatFile] = useState("xlsx");
+  const [checkFile, setCheckFile] = useState("");
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const recievedFile = event.target.files;
     setFile(recievedFile ? recievedFile[0] : null);
+    setCheckFile(recievedFile ? recievedFile[0].name : "");
   };
 
   const handleFileSubmit = async () => {
@@ -57,12 +59,13 @@ export default function PredictData() {
 
   const handleSelectFormat = (event: SelectChangeEvent) => {
     setFormatFile(event.target.value as string);
-  }
+  };
 
   const downloadPrediction = async () => {
     if (predictionData) {
       const url =
-        "https://fastapi-967824586620.us-central1.run.app/download-file/?format=" + formatFile;
+        "https://fastapi-967824586620.us-central1.run.app/download-file/?format=" +
+        formatFile;
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(predictionData),
@@ -89,21 +92,71 @@ export default function PredictData() {
       >
         Predecir un conjunto de datos
       </Typography>
-
-      <Button
-        component="label"
-        role={undefined}
-        variant="contained"
-        tabIndex={-1}
-        startIcon={<CloudUpload />}
+      <Grid2
+        container
         sx={{
-          color: "white",
-          marginBottom: "1rem",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        Suba un archivo
-        <VisuallyHiddenInput type="file" onChange={handleFileChange} multiple />
-      </Button>
+        <Button
+          component="label"
+          role={undefined}
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUpload />}
+          sx={{
+            color: "white",
+            marginBottom: "1rem",
+            marginRight: "1rem",
+          }}
+        >
+          Suba un archivo
+          <VisuallyHiddenInput
+            type="file"
+            onChange={handleFileChange}
+            multiple
+          />
+        </Button>
+
+        {checkFile && (
+          <>
+            <Typography
+              variant="body1"
+              sx={{
+                marginBottom: "1rem",
+                fontWeight: "bold",
+                padding: "0.5rem",
+                backgroundColor: "#f5f5f5",
+                borderRadius: "6px",
+                border: "1px solid #ddd",
+                display: "inline-block",
+                marginRight: "0.5rem",
+              }}
+            >
+              <span style={{ fontSize: "1rem", color: "#ED8B00" }}>
+                Archivo seleccionado:
+              </span>{" "}
+              {checkFile}
+            </Typography>
+            <IconButton
+              onClick={() => {
+                setCheckFile("");
+                setFile(null);
+              }}
+              sx={{ color: "#ED8B00",
+                alignContent: "center",
+                marginBottom: "1rem",
+
+              }}
+            >
+              <CleaningServicesIcon />
+            </IconButton>
+          </>
+        )}
+      </Grid2>
 
       <Button
         onClick={handleFileSubmit}
@@ -120,7 +173,6 @@ export default function PredictData() {
         <>
           {" "}
           <ModelContainer data={predictionData} />{" "}
-          
           <Typography
             variant="body1"
             color="primary"
