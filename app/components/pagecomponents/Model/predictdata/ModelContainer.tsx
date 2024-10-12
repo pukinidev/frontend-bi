@@ -16,7 +16,6 @@ export default function ModelContainer({ data }: ModelContainerProps) {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [dataModel, setDataModel] = useState<PredictionInterface | null>(null);
 
-  console.log(dataModel);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
