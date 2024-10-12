@@ -127,8 +127,7 @@ export default function ProjectDetail() {
           </Typography>
           <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
             El reentrenamiento de un modelo de clasificación de ODS (Objetivos
-            de Desarrollo Sostenible) implica ajustar el modelo original
-            utilizando nuevos datos.
+            de Desarrollo Sostenible)
           </Typography>
           <Link href="/retrainmodel" passHref>
             <Button
