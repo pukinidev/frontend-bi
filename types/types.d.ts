@@ -14,6 +14,17 @@ interface ModelDetailsProps {
     data: PredictionInterface | null;
 }
 
-interface SendDataInterface{
+interface SendDataInterface {
   Textos_espanol: string;
 }
+
+interface ModelModalProps {
+  open: boolean;
+  handleClose: () => void;
+  data: SendDataInterface[] | null;
+}
+
+interface ModelTableProps {
+  data: SendDataInterface[] | null;
+}
+

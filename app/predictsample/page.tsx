@@ -1,79 +1,80 @@
 "use client";
-import { Typography } from "@mui/material";
+import { Typography, Grid2 } from "@mui/material";
 import Button from "@mui/material/Button";
-import InsightsIcon from '@mui/icons-material/Insights';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { styled } from "@mui/material/styles";
-import { ChangeEvent, useState, FormEvent } from "react";
-import { FormControl, FormLabel } from '@mui/material';
-import { Lobster } from "next/font/google";
-import { json } from "stream/consumers";
-
-
-
-
-
-
+import InsightsIcon from "@mui/icons-material/Insights";
+import TextField from "@mui/material/TextField";
+import SaveIcon from "@mui/icons-material/Save";
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import InfoIcon from "@mui/icons-material/Info";
+import { useState } from "react";
+import ModelModal from "../components/pagecomponents/Model/predictsample/ModelModal";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function PredictSample() {
-
   const [inputText, setInputText] = useState("");
+  const [bodyData, setBodyData] = useState<SendDataInterface[] | null>(null);
+  const [dataModel, setDataModel] = useState<PredictionInterface | null>(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handlePhraseSubmit = async (event : FormEvent<HTMLFormElement>) => {
-    var array_puki = [];
-    
-
-
-
-
-
-
-
-    let array1 = inputText.split(";cambio;")
-    console.log(array1)
-    event.preventDefault()
-    console.log("Se envio la frase")
-    setInputText("")
-    var i;
-    //var prueba1 = `[`;
-    for(i=0; i<array1.length; i++){
-      let dicc_puki: SendDataInterface = {
-        Textos_espanol: ""
-      };
-      dicc_puki[Textos_espanol] = array1[i];
-      /* const texto = `{ "Textos_espanol" : "` + array1[i] + `"}`;
-      console.log(texto) */
-      //prueba1 += texto
-      array_puki.push(dicc_puki)
+  const handleChangePhrase = () => {
+    if (!inputText || inputText.trim() === "") {
+      setError("Por favor introduzca por lo menos una frase");
+      return;
     }
-    //prueba1 = prueba1.substring(0, prueba1.length - 1);
-    //prueba1 += `]`
-    //console.log(prueba1)
 
-    console.log(array_puki)
-    const prueba2 = JSON.stringify(array_puki)
+    const array_puki: SendDataInterface[] = [];
+    const array1 = inputText.split("\n");
 
+    for (let i = 0; i < array1.length; i++) {
+      const phrase = array1[i].trim();
+      if (phrase) {
+        const dicc_puki: SendDataInterface = {
+          Textos_espanol: phrase,
+        };
+        array_puki.push(dicc_puki);
+      }
+    }
 
+    console.log(array_puki);
+    setBodyData(array_puki);
+    setError("");
+  };
+
+  const submitData = async () => {
+    if (bodyData == null) {
+      setError("Por favor introduzca por lo menos una frase");
+      return;
+    }
+    setLoading(true);
     try {
-      const url =
-        "https://fastapi-967824586620.us-central1.run.app/predict";
+      const url = "https://fastapi-967824586620.us-central1.run.app/predict";
       const response = await fetch(url, {
         method: "POST",
-        body: prueba2,
-      });  
-      console.log(response.json())
-      //const data: PredictionInterface[] =  response.json(); 
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyData),
+      });
+
+      const data: PredictionInterface[] = await response.json();
+      console.log(data);
+      setLoading(false);
     } catch (error) {
-      console.error(error);
+      console.error("Error occurred:", error);
     }
-};
+  };
 
-
-/*   const onSubmit = (d) => alert(JSON.stringify(d, null, 2)); */
+  const cleanData = () => {
+    setInputText("");
+    setBodyData(null);
+  };
 
   return (
-    <div>
+    <>
       <Typography
         variant="h2"
         sx={{ marginBottom: "1rem" }}
@@ -84,38 +85,121 @@ export default function PredictSample() {
       </Typography>
 
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
-        Por favor introduzca las frases que desea predecir.  Cada frase debe ser separada por ;cambio;.
+        Por favor introduzca las frases que desea predecir. Cada frase debe ir
+        en una nueva línea.
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
         Por ejemplo:
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
-      frase 1 ;cambio; frase 2 ;cambio; frase 3
+        frase 1 <br />
+        frase 2 <br />
+        frase 3
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
-      Salud y bienestar ;cambio; Colegios y educación ;cambio; Igualdad y mujeres 
+        Salud y bienestar <br />
+        Colegios y educación <br />
+        Igualdad y mujeres
       </Typography>
 
-    <form onSubmit={handlePhraseSubmit}>
-    <TextField label="frase" onChange={e => setInputText(e.target.value)} multiline maxRows={4} fullWidth />
-
-    <Button
-        variant="contained"
-        startIcon={<InsightsIcon />}
-        type="submit"
+      <Grid2
+        spacing={2}
         sx={{
-          color: "white",
-          marginBottom: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "1rem",
         }}
       >
-        Predecir frases
-      </Button>
-    </form>
+        {bodyData ? (
+          <>
+            <Typography
+              variant="body1"
+              sx={{
+                marginTop: "1rem",
+                marginBottom: "1rem",
+                fontWeight: "bold",
+                padding: "0.5rem",
+                backgroundColor: "#f5f5f5",
+                borderRadius: "6px",
+                border: "1px solid #ddd",
+                display: "inline-block",
+                marginRight: "0.5rem",
+              }}
+            >
+              <span style={{ fontSize: "1rem", color: "#ED8B00" }}>
+                Cantidad de frases a enviar:
+              </span>{" "}
+              {bodyData.length}
+            </Typography>
+            <Button
+              variant="contained"
+              startIcon={<InfoIcon />}
+              sx={{
+                color: "white",
+                marginBottom: "1rem",
+              }}
+              onClick={handleOpen}
+            >
+              Consultar frases
+            </Button>
+            <ModelModal open={open} handleClose={handleClose} data={bodyData} />
+            <Button
+              variant="contained"
+              startIcon={<InsightsIcon />}
+              sx={{
+                color: "white",
+                marginBottom: "1rem",
+              }}
+              onClick={submitData}
+            >
+              Predecir frases
+            </Button>
+            {loading && (
+              <>
+                <CircularProgress />
+                <Typography>Enviando datos...</Typography>{" "}
+              </>
+            )}
+            <Button
+              variant="contained"
+              startIcon={<CleaningServicesIcon />}
+              sx={{
+                color: "white",
+              }}
+              onClick={cleanData}
+            >
+              Reiniciar
+            </Button>
+          </>
+        ) : (
+          <>
+            <TextField
+              label="Frases"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              multiline
+              fullWidth
+              rows={10}
+              error={!!error}
+              helperText={error}
+            />
 
-
-
-
-
-    </div>
+            <Button
+              variant="contained"
+              startIcon={<SaveIcon />}
+              sx={{
+                color: "white",
+                marginTop: "1rem",
+              }}
+              onClick={handleChangePhrase}
+            >
+              Guardar Frases
+            </Button>
+          </>
+        )}
+      </Grid2>
+    </>
   );
 }
