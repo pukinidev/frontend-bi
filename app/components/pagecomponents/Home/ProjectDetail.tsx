@@ -181,7 +181,7 @@ export default function ProjectDetail() {
           }}
         >
           <Typography variant="h5" color="primary" fontWeight="bold">
-            Predecir un archivo
+            Predecir textos
           </Typography>
           <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
             Predice las opiniones ciudadanas respecto a los ODS 3, 4 y 5 a
