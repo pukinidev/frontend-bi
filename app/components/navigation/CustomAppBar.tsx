@@ -17,6 +17,7 @@ import { useState } from "react";
 const pages = [
   { href: "/predictdata", label: "Predecir un conjunto de datos" },
   { href: "/predictsample", label: "Predecir una muestra" },
+  { href: "/retrainmodel", label: "Reentrenar el modelo" },
 ];
 
 export default function CustomAppBar() {

@@ -14,3 +14,9 @@ interface ModelDetailsProps {
     data: PredictionInterface | null;
 }
 
+interface ModelMetricsInterface {
+  precision: number;
+  recall: number;
+  f1: number;
+  accuracy: number;
+}
