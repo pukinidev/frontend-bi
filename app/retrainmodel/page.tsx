@@ -1,10 +1,11 @@
 "use client";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, IconButton, Grid2 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -24,10 +25,16 @@ export default function PredictData() {
     null
   );
   const [isLoading, setIsLoading] = useState(false);
-  console.log("modelData", modelData);
+  const [checkFile, setCheckFile] = useState("");
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const receivedFile = event.target.files;
     setFile(receivedFile ? receivedFile[0] : null);
+    setCheckFile(receivedFile ? receivedFile[0].name : "");
+  };
+
+  const cleanData = () => {
+    setCheckFile("");
+    setFile(null);
   };
 
   const handleFileSubmit = async () => {
@@ -75,23 +82,64 @@ export default function PredictData() {
       </Typography>
 
       <Stack alignContent={"center"} alignItems={"center"} flexWrap={"wrap"}>
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<CloudUpload />}
-          sx={{
-            color: "white",
-            marginBottom: "1rem",
-          }}
-          disabled={isLoading}
+        <Grid2
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
         >
-          {isLoading ? "Subiendo..." : "Subir archivo"}
-          <VisuallyHiddenInput
-            type="file"
-            onChange={handleFileChange}
-            multiple
-          />
-        </Button>
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<CloudUpload />}
+            sx={{
+              color: "white",
+              marginBottom: "1rem",
+            }}
+            disabled={isLoading}
+          >
+            {isLoading ? "Subiendo..." : "Subir archivo"}
+            <VisuallyHiddenInput
+              type="file"
+              onChange={handleFileChange}
+              multiple
+            />
+          </Button>
+          {checkFile && (
+            <>
+              <Typography
+                variant="body1"
+                sx={{
+                  marginBottom: "1rem",
+                  fontWeight: "bold",
+                  padding: "0.5rem",
+                  backgroundColor: "#f5f5f5",
+                  borderRadius: "6px",
+                  border: "1px solid #ddd",
+                  display: "inline-block",
+                  marginRight: "0.5rem",
+                }}
+              >
+                <span style={{ fontSize: "1rem", color: "#ED8B00" }}>
+                  Archivo seleccionado:
+                </span>{" "}
+                {checkFile}
+              </Typography>
+              <IconButton
+                onClick={cleanData}
+                sx={{
+                  color: "#ED8B00",
+                  alignContent: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <CleaningServicesIcon />
+              </IconButton>
+            </>
+          )}
+        </Grid2>
+
         <Button
           variant="contained"
           sx={{
