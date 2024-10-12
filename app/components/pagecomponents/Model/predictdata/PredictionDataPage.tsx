@@ -10,7 +10,7 @@ import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import ModelContainer from "../components/pagecomponents/Model/predictdata/ModelContainer";
+import ModelContainer from "./ModelContainer";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -26,7 +26,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function PredictData() {
+export default function PredictDataPage() {
   const [file, setFile] = useState<File | null>(null);
   const [predictionData, setPredictionData] = useState<
     PredictionInterface[] | null

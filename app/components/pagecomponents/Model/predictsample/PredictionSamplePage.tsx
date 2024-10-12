@@ -7,13 +7,13 @@ import SaveIcon from "@mui/icons-material/Save";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import InfoIcon from "@mui/icons-material/Info";
 import { useState } from "react";
-import ModelModal from "../components/pagecomponents/Model/predictsample/ModelModal";
+import ModelModal from "./ModelModal";
 import CircularProgress from "@mui/material/CircularProgress";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import ModelContainer from "../components/pagecomponents/Model/predictdata/ModelContainer";
+import ModelContainer from "../predictdata/ModelContainer";
 
-export default function PredictSample() {
+export default function PredictSamplePage() {
   const [inputText, setInputText] = useState("");
   const [bodyData, setBodyData] = useState<SendDataInterface[] | null>(null);
   const [predictionData, setPredictionData] = useState<
@@ -195,6 +195,7 @@ export default function PredictSample() {
             <ModelModal open={open} handleClose={handleClose} data={bodyData} />
             
             <Button
+              color="error"
               variant="contained"
               startIcon={<CleaningServicesIcon />}
               sx={{ color: "white", marginBottom: "1rem" }}
@@ -271,6 +272,7 @@ export default function PredictSample() {
 
           <Stack spacing={2} direction="row">
             <Button
+              color="error"
               variant="contained"
               startIcon={<CleaningServicesIcon />}
               sx={{ color: "white" }}

@@ -15,8 +15,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const pages = [
-  { href: "/predictdata", label: "Predecir un conjunto de datos" },
-  { href: "/predictsample", label: "Predecir una muestra" },
+  { href: "/prediction", label: "Predicción" },
 ];
 
 export default function CustomAppBar() {
