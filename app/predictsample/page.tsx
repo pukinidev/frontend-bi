@@ -44,10 +44,6 @@ export default function PredictSample() {
   };
 
   const submitData = async () => {
-    if (bodyData == null) {
-      setError("Por favor introduzca por lo menos una frase");
-      return;
-    }
     setLoading(true);
     try {
       const url = "https://fastapi-967824586620.us-central1.run.app/predict";
@@ -71,8 +67,6 @@ export default function PredictSample() {
     setInputText("");
     setBodyData(null);
   };
-
-  
 
   return (
     <>
