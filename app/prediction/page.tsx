@@ -49,7 +49,7 @@ export default function Prediction() {
               width: { xs: "100%", md: "45%" },
               boxShadow:
                 selectedMode === "archivo"
-                  ? "0px 0px 15px rgba(237, 139, 0, 0.8)"
+                  ? "0px 0px 6px rgba(237, 139, 0, 0.8)"
                   : "none",
               transition: "box-shadow 0.3s ease-in-out",
               cursor: "pointer",
@@ -73,7 +73,7 @@ export default function Prediction() {
               width: { xs: "100%", md: "45%" },
               boxShadow:
                 selectedMode === "texto"
-                  ? "0px 0px 15px rgba(237, 139, 0, 0.8)"
+                  ? "0px 0px 6px rgba(237, 139, 0, 0.8)"
                   : "none",
               transition: "box-shadow 0.3s ease-in-out",
               cursor: "pointer",
