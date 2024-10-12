@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import ModelDetail from "./ModelDetail";
 
 import { useState } from "react";
-import { Button} from "@mui/material";
+import { Button } from "@mui/material";
 
 export default function ModelContainer({ data }: ModelContainerProps) {
   const [page, setPage] = useState(0);
@@ -33,11 +33,7 @@ export default function ModelContainer({ data }: ModelContainerProps) {
     setPage(0);
   };
 
-  if (data == null) {
-    return null;
-  }
-
-  const paginatedData = data.slice(
+  const paginatedData = data?.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
@@ -54,7 +50,7 @@ export default function ModelContainer({ data }: ModelContainerProps) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {paginatedData.map((row) => (
+              {paginatedData?.map((row) => (
                 <TableRow key={row.Texto}>
                   <TableCell>{row.Texto}</TableCell>
                   <TableCell>
@@ -77,7 +73,7 @@ export default function ModelContainer({ data }: ModelContainerProps) {
         </TableContainer>
         <TablePagination
           component="div"
-          count={data.length}
+          count={data?.length || 0}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
@@ -85,8 +81,7 @@ export default function ModelContainer({ data }: ModelContainerProps) {
           rowsPerPageOptions={[5, 10, 25]}
         />
       </Paper>
-      { dataModel && <ModelDetail data={dataModel} />
-      }
+      {dataModel && <ModelDetail data={dataModel} />}
     </>
   );
 }

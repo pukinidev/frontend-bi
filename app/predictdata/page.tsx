@@ -1,12 +1,19 @@
 "use client";
-import { Grid2, IconButton, MenuItem, Typography } from "@mui/material";
+import {
+  Container,
+  Grid2,
+  IconButton,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloudUpload } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import ModelContainer from "../components/pagecomponents/Model/predictdata/ModelContainer";
-import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -27,6 +34,7 @@ export default function PredictData() {
   >(null);
   const [formatFile, setFormatFile] = useState("xlsx");
   const [checkFile, setCheckFile] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -40,6 +48,7 @@ export default function PredictData() {
     const formData = new FormData();
     if (file) {
       formData.append("file", file);
+      setLoading(true);
       try {
         const url =
           "https://fastapi-967824586620.us-central1.run.app/predict_from_excel";
@@ -48,6 +57,7 @@ export default function PredictData() {
           body: formData,
         });
         const data: PredictionInterface[] = await response.json();
+        setLoading(false);
         setPredictionData(data);
       } catch (error) {
         console.error(error);
@@ -82,6 +92,12 @@ export default function PredictData() {
     }
   };
 
+  const cleanData = () => {
+    setPredictionData(null);
+    setCheckFile("");
+    setFile(null);
+  };
+
   return (
     <>
       <Typography
@@ -101,25 +117,27 @@ export default function PredictData() {
           alignItems: "center",
         }}
       >
-        <Button
-          component="label"
-          role={undefined}
-          variant="contained"
-          tabIndex={-1}
-          startIcon={<CloudUpload />}
-          sx={{
-            color: "white",
-            marginBottom: "1rem",
-            marginRight: "1rem",
-          }}
-        >
-          Suba un archivo
-          <VisuallyHiddenInput
-            type="file"
-            onChange={handleFileChange}
-            multiple
-          />
-        </Button>
+        {file === null && (
+          <Button
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            startIcon={<CloudUpload />}
+            sx={{
+              color: "white",
+              marginBottom: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            Suba un archivo
+            <VisuallyHiddenInput
+              type="file"
+              onChange={handleFileChange}
+              multiple
+            />
+          </Button>
+        )}
 
         {checkFile && (
           <>
@@ -142,14 +160,11 @@ export default function PredictData() {
               {checkFile}
             </Typography>
             <IconButton
-              onClick={() => {
-                setCheckFile("");
-                setFile(null);
-              }}
-              sx={{ color: "#ED8B00",
+              onClick={cleanData}
+              sx={{
+                color: "#ED8B00",
                 alignContent: "center",
                 marginBottom: "1rem",
-
               }}
             >
               <CleaningServicesIcon />
@@ -158,16 +173,47 @@ export default function PredictData() {
         )}
       </Grid2>
 
-      <Button
-        onClick={handleFileSubmit}
-        variant="contained"
-        sx={{
-          color: "white",
-          marginBottom: "1rem",
-        }}
-      >
-        Predecir
-      </Button>
+      {file && (
+        <Grid2
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {predictionData === null && (
+            <Button
+              onClick={handleFileSubmit}
+              variant="contained"
+              sx={{
+                color: "white",
+                marginBottom: "1rem",
+              }}
+            >
+              Predecir
+            </Button>
+          )}
+
+          {loading && (
+            <>
+              <CircularProgress sx={{ marginTop: "1rem",marginBottom: "1rem" }} size="10rem" />
+              <Typography
+                variant="body1"
+                sx={{
+                  marginBottom: "1rem",
+                  fontWeight: "bold",
+                  padding: "0.5rem",
+                  display: "inline-block",
+                  marginRight: "0.5rem",
+                }}
+              >
+                Se esta realizando la predicción...
+              </Typography>
+            </>
+          )}
+        </Grid2>
+      )}
 
       {predictionData !== null && (
         <>

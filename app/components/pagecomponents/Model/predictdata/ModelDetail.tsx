@@ -4,9 +4,7 @@ import Image from "next/image";
 import ModelGauge from "./ModelGauge";
 
 export default function ModelDetail({ data }: ModelDetailsProps) {
-  if (data == null) {
-    return null;
-  }
+  
   return (
     <Card
       sx={{
@@ -35,7 +33,7 @@ export default function ModelDetail({ data }: ModelDetailsProps) {
           Texto:
         </Typography>
         <Typography variant="body1" component="div">
-          {data.Texto}
+          {data?.Texto}
         </Typography>
         <Typography variant="h6" color="primary" sx={{
             marginTop: "1rem",
@@ -44,7 +42,7 @@ export default function ModelDetail({ data }: ModelDetailsProps) {
           Predicción:
         </Typography>
         <Image
-          src={`/ODS` + data.Prediccion + ".png"}
+          src={`/ODS` + data?.Prediccion + ".png"}
           alt="ODS 3"
           height={300}
           width={300}
