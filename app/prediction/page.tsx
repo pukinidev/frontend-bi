@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import PredictDataPage from "../components/pagecomponents/Model/predictdata/PredictionDataPage";
 import PredictSamplePage from "../components/pagecomponents/Model/predictsample/PredictionSamplePage";
+import { Button } from "@mui/material";
 
 export default function Prediction() {
   
@@ -43,11 +44,22 @@ export default function Prediction() {
           <FormControlLabel
             value="texto"
             control={<Radio />}
-            label="Predecir escribiendo el texto"
+            label="Predecir escribiendo tus propios datos"
             sx={{ marginBottom: 1 }}
           />
         </RadioGroup>
       </FormControl>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={selectedMode === ""}
+        sx={{ marginLeft: 2,
+          color: "white",
+         }}
+        onClick={() => setSelectedMode("")}
+      >
+        Limpiar selección
+      </Button>
     </Box>
 
     {selectedMode === "archivo" && <PredictDataPage />}
