@@ -76,7 +76,7 @@ export default function PredictSample() {
         color="primary"
         fontWeight="bold"
       >
-        Predecir una muestra :D
+        Predecir una muestra
       </Typography>
 
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
@@ -85,11 +85,6 @@ export default function PredictSample() {
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
         Por ejemplo:
-      </Typography>
-      <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
-        frase 1 <br />
-        frase 2 <br />
-        frase 3
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
         Salud y bienestar <br />
