@@ -16,6 +16,7 @@ import { useState } from "react";
 
 const pages = [
   { href: "/prediction", label: "Predicción" },
+  { href: "/retrainmodel", label: "Reentrenar el modelo" },
 ];
 
 export default function CustomAppBar() {

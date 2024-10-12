@@ -20,6 +20,7 @@ export default function ProjectDetail() {
       >
         Proyecto 1 - Etapa 2
       </Typography>
+
       <Typography variant="body1" sx={{ marginBottom: "1rem" }}>
         El problema que el Fondo de Poblaciones de las Naciones Unidas (UNFPA)
         quiere resolver es la identificación de problemas y evaluación de
@@ -33,6 +34,7 @@ export default function ProjectDetail() {
         2023)​. El propósito es permitir un análisis más eficiente y económico
         de las opiniones ciudadanas para encontrar insights que permitan la toma
         de decisiones y el diseño de políticas públicas.
+
       </Typography>
       <Typography
         variant="h3"

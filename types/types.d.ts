@@ -11,7 +11,7 @@ interface ModelContainerProps {
 }
 
 interface ModelDetailsProps {
-    data: PredictionInterface | null;
+  data: PredictionInterface | null;
 }
 
 interface SendDataInterface {
@@ -28,3 +28,9 @@ interface ModelTableProps {
   data: SendDataInterface[] | null;
 }
 
+interface ModelMetricsInterface {
+  accuracy: number;
+  precision: number;
+  recall: number;
+  f1_score: number;
+}
